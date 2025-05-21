@@ -1,0 +1,153 @@
+from enum import Enum
+
+class TipoLocal(Enum):
+    INTERNO = 1
+    CALLE = 2
+
+class Inmueble:
+    def __init__(self, identificador, area, direccion):
+        self._identificadorInmobiliario = identificador
+        self._area = area
+        self._direccion = direccion
+        self._precioVenta = 0.0
+
+    def calcularPrecioVenta(self, valorArea):
+        self._precioVenta = self._area * valorArea
+        return self._precioVenta
+
+    def imprimir(self):
+        print(f"ID: {self._identificadorInmobiliario}, Area: {self._area}, Direccion: {self._direccion}, Precio: ${self._precioVenta}")
+
+class InmuebleVivienda(Inmueble):
+    def __init__(self, identificador, area, direccion, habitaciones, banos):
+        super().__init__(identificador, area, direccion)
+        self._numeroHabitaciones = habitaciones
+        self._numeroBanos = banos
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Habitaciones: {self._numeroHabitaciones}, Baños: {self._numeroBanos}")
+
+class Casa(InmuebleVivienda):
+    def __init__(self, identificador, area, direccion, habitaciones, banos, pisos):
+        super().__init__(identificador, area, direccion, habitaciones, banos)
+        self._numeroPisos = pisos
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Pisos: {self._numeroPisos}")
+
+class CasaRural(Casa):
+    def __init__(self, identificador, area, direccion, habitaciones, banos, pisos, distanciaCabecera, altitud):
+        super().__init__(identificador, area, direccion, habitaciones, banos, pisos)
+        self._distanciaCabecera = distanciaCabecera
+        self._altitud = altitud
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Distancia cabecera: {self._distanciaCabecera} km, Altitud: {self._altitud} m")
+
+class CasaUrbana(Casa):
+    def __init__(self, identificador, area, direccion, habitaciones, banos, pisos, conjunto_cerrado):
+        super().__init__(identificador, area, direccion, habitaciones, banos, pisos)
+        self._conjuntoCerrado = conjunto_cerrado
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Conjunto cerrado: {self._conjuntoCerrado}")
+
+class CasaConjuntoCerrado(CasaUrbana):
+    def __init__(self, identificador, area, direccion, habitaciones, banos, pisos, valorAdmin, tienePiscina, tieneCampos):
+        super().__init__(identificador, area, direccion, habitaciones, banos, pisos, conjunto_cerrado=True)
+        self._valorAdministracion = valorAdmin
+        self._tienePiscina = tienePiscina
+        self._tieneCamposDeportivos = tieneCampos
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Admin: ${self._valorAdministracion}, Piscina: {self._tienePiscina}, Campos deportivos: {self._tieneCamposDeportivos}")
+
+class CasaIndependiente(CasaUrbana):
+    def __init__(self, identificador, area, direccion, habitaciones, banos, pisos):
+        super().__init__(identificador, area, direccion, habitaciones, banos, pisos, conjunto_cerrado=False)
+
+class Apartamento(InmuebleVivienda):
+    def __init__(self, identificador, area, direccion, habitaciones, banos, valorAdmin):
+        super().__init__(identificador, area, direccion, habitaciones, banos)
+        self._valorAdministracion = valorAdmin
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Admin: ${self._valorAdministracion}")
+
+class ApartamentoFamiliar(Apartamento):
+    def __init__(self, identificador, area, direccion, habitaciones, banos, valorAdmin):
+        super().__init__(identificador, area, direccion, habitaciones, banos, valorAdmin)
+
+class Apartaestudio(Apartamento):
+    def __init__(self, identificador, area, direccion, banos, valorAdmin):
+        super().__init__(identificador, area, direccion, 1, banos, valorAdmin)  # Solo una habitación
+
+class Local(Inmueble):
+    def __init__(self, identificador, area, direccion, tipoLocal):
+        super().__init__(identificador, area, direccion)
+        self._tipoLocal = tipoLocal
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Tipo local: {self._tipoLocal.name}")
+
+class LocalComercial(Local):
+    def __init__(self, identificador, area, direccion, tipoLocal, centroComercial):
+        super().__init__(identificador, area, direccion, tipoLocal)
+        self._centroComercial = centroComercial
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Centro comercial: {self._centroComercial}")
+
+class Oficina(Local):
+    def __init__(self, identificador, area, direccion, tipoLocal, esGobierno):
+        super().__init__(identificador, area, direccion, tipoLocal)
+        self._esGobierno = esGobierno
+
+    def imprimir(self):
+        super().imprimir()
+        print(f"Gobierno: {self._esGobierno}")
+
+
+if __name__ == "__main__":
+    print("\n--- Casa Rural ---")
+    casa_rural = CasaRural(123456, 120, "Vereda El Sol", 3, 2, 2, 15.5, 1800)
+    casa_rural.calcularPrecioVenta(1500000)
+    casa_rural.imprimir()
+
+    print("\n--- Casa Conjunto Cerrado ---")
+    casa_cc = CasaConjuntoCerrado(234567, 200, "Calle 10 #5-20", 4, 3, 2, 350000, True, True)
+    casa_cc.calcularPrecioVenta(2500000)
+    casa_cc.imprimir()
+
+    print("\n--- Casa Independiente ---")
+    casa_ind = CasaIndependiente(345678, 150, "Carrera 15 #8-42", 3, 2, 1)
+    casa_ind.calcularPrecioVenta(3000000)
+    casa_ind.imprimir()
+
+    print("\n--- Apartamento Familiar ---")
+    apt_fam = ApartamentoFamiliar(456789, 90, "Torre 3, Apto 201", 3, 2, 280000)
+    apt_fam.calcularPrecioVenta(2000000)
+    apt_fam.imprimir()
+
+    print("\n--- Apartaestudio ---")
+    apt_est = Apartaestudio(567890, 35, "Edificio Centro", 1, 220000)
+    apt_est.calcularPrecioVenta(1500000)
+    apt_est.imprimir()
+
+    print("\n--- Local Comercial ---")
+    local_com = LocalComercial(678901, 60, "Centro Comercial Norte", TipoLocal.CALLE, "Plaza Norte")
+    local_com.calcularPrecioVenta(3000000)
+    local_com.imprimir()
+
+    print("\n--- Oficina ---")
+    oficina = Oficina(789012, 80, "Edificio Empresarial", TipoLocal.INTERNO, False)
+    oficina.calcularPrecioVenta(3500000)
+    oficina.imprimir()
