@@ -1,0 +1,21 @@
+class Profesor:
+    def __init__(self, nombre: str, departamento: str):
+        self._nombre = nombre
+        self._departamento = departamento
+
+    def _imprimir(self):
+        print(f"Profesor: {self._nombre}, Departamento: {self._departamento}")
+
+
+class ProfesorTitular(Profesor):
+    def __init__(self, nombre: str, departamento: str, categoria: str):
+        super().__init__(nombre, departamento)
+        self._categoria = categoria
+
+    def _imprimir(self):
+        super()._imprimir()
+        print(f"Categoría: {self._categoria}")
+
+if __name__ == "__main__":
+    titular = ProfesorTitular("Ana Torres", "Matemáticas", "Titular")
+    titular._imprimir()
