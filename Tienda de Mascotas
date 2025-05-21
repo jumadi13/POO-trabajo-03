@@ -1,0 +1,146 @@
+class Mascota:
+    def __init__(self, nombre: str, edad: int, color: str):
+        self.nombre = nombre
+        self.edad = edad
+        self.color = color
+
+# Jerarquía de Perros
+
+class Perro(Mascota):
+    def __init__(self, nombre: str, edad: int, color: str, peso: float, muerde: bool):
+        super().__init__(nombre, edad, color)
+        self.peso = peso
+        self.muerde = muerde
+
+    @staticmethod
+    def sonido():
+        print("Los perros ladran")
+
+# Perros por tamaño
+class PerroPequeno(Perro):
+    pass
+
+class PerroMediano(Perro):
+    pass
+
+class PerroGrande(Perro):
+    pass
+
+# Razas de perros pequeños
+class Caniche(PerroPequeno):
+    pass
+
+class YorkshireTerrier(PerroPequeno):
+    pass
+
+class Schnauzer(PerroPequeno):
+    pass
+
+class Chihuahua(PerroPequeno):
+    pass
+
+# Razas de perros medianos
+class Collie(PerroMediano):
+    pass
+
+class Dalmata(PerroMediano):
+    pass
+
+class Bulldog(PerroMediano):
+    pass
+
+class Galgo(PerroMediano):
+    pass
+
+class Sabueso(PerroMediano):
+    pass
+
+# Razas de perros grandes
+class PastorAleman(PerroGrande):
+    pass
+
+class Doberman(PerroGrande):
+    pass
+
+class Rotweiller(PerroGrande):
+    pass
+
+# Jerarquía de Gatos
+
+class Gato(Mascota):
+    def __init__(self, nombre: str, edad: int, color: str, altura_salto: float, longitud_salto: float):
+        super().__init__(nombre, edad, color)
+        self.altura_salto = altura_salto
+        self.longitud_salto = longitud_salto
+
+    @staticmethod
+    def sonido():
+        print("Los gatos maüallan y ronronean")
+
+# Gatos por tipo de pelaje
+class GatoSinPelo(Gato):
+    pass
+
+class GatoPeloLargo(Gato):
+    pass
+
+class GatoPeloCorto(Gato):
+    pass
+
+# Razas de gatos sin pelo
+class Esfinge(GatoSinPelo):
+    pass
+
+class Elfo(GatoSinPelo):
+    pass
+
+class Donskoy(GatoSinPelo):
+    pass
+
+# Razas de gatos de pelo largo
+class Angora(GatoPeloLargo):
+    pass
+
+class Himalayo(GatoPeloLargo):
+    pass
+
+class Balines(GatoPeloLargo):
+    pass
+
+class Somali(GatoPeloLargo):
+    pass
+
+# Razas de gatos de pelo corto
+class AzulRuso(GatoPeloCorto):
+    pass
+
+class Britanico(GatoPeloCorto):
+    pass
+
+class Manx(GatoPeloCorto):
+    pass
+
+class DevonRex(GatoPeloCorto):
+    pass
+
+
+if __name__ == "__main__":
+  
+    perro1 = Caniche("Toby", 3, "blanco", 5.2, False)
+    perro2 = Dalmata("Pongo", 4, "blanco con negro", 22.5, True)
+    perro3 = PastorAleman("Rex", 6, "negro y marrón", 35.0, True)
+
+    gato1 = Esfinge("Luna", 2, "rosado", 1.2, 2.5)
+    gato2 = Himalayo("Misha", 5, "gris", 0.9, 1.8)
+    gato3 = AzulRuso("Blue", 4, "azul grisáceo", 1.1, 2.0)
+
+    Perro.sonido()
+    Gato.sonido()
+
+    print(f"{perro1.__class__.__name__}: {perro1.nombre}, {perro1.edad} años, color: {perro1.color}, peso: {perro1.peso}kg, muerde: {perro1.muerde}")
+    print(f"{perro2.__class__.__name__}: {perro2.nombre}, {perro2.edad} años, color: {perro2.color}, peso: {perro2.peso}kg, muerde: {perro2.muerde}")
+    print(f"{perro3.__class__.__name__}: {perro3.nombre}, {perro3.edad} años, color: {perro3.color}, peso: {perro3.peso}kg, muerde: {perro3.muerde}")
+
+    print(f"{gato1.__class__.__name__}: {gato1.nombre}, {gato1.edad} años, color: {gato1.color}, salta: {gato1.altura_salto}m alto y {gato1.longitud_salto}m largo")
+    print(f"{gato2.__class__.__name__}: {gato2.nombre}, {gato2.edad} años, color: {gato2.color}, salta: {gato2.altura_salto}m alto y {gato2.longitud_salto}m largo")
+    print(f"{gato3.__class__.__name__}: {gato3.nombre}, {gato3.edad} años, color: {gato3.color}, salta: {gato3.altura_salto}m alto y {gato3.longitud_salto}m largo")
